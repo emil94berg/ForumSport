@@ -1,0 +1,33 @@
+﻿@page
+@model ForumSport.Pages.CategoryPageModel
+@{
+}
+<div style="display: flex; gap: 20px;">
+    @foreach (var subs in Model.AllSubCategories.Where(s => s.CategoryId == Model.SelectedCategoryId))
+    {
+        <a asp-route-thisCategoryId="@Model.SelectedCategoryId" asp-route-subId="@subs.Id"><p>@subs.Name</p></a>
+    }
+</div>
+
+<div class="card">
+    @foreach (var post in Model.AllPostsForCategory)
+    {
+        <a asp-page="/SpecificPost" asp-route-postId="@post.Id">
+            <h4 class="card-header">@post.Header</h4>
+        </a>
+        <div class="card-body">
+            <p>@post.Content
+            @if (post.ImgString != "")
+            {
+                <img class="card-img-top" style="max-width: 100px; margin-left: 100px;" src="~/img/@post.ImgString" />
+            }
+            </p>
+            
+        </div>
+            
+            <p class="card-footer">@post.PostDate.ToString("yyyy-MM-dd HH:mm")</p>
+            
+        
+        
+    }
+</div>

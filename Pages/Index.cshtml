@@ -1,0 +1,21 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Forum för sport</h1>
+    <h4>Här under kan du se alla kategorier</h4>
+    <hr />
+</div>
+<div class="CategoryFrontPage">
+    @foreach (var x in Model.Categories)
+    {
+        <a asp-page="/CategoryPage" asp-route-thisCategoryId="@x.Id">
+            <div class="CategoryFrontPageDiv">
+                <h6>@x.Name</h6>
+            </div>
+        </a>
+    }
+</div>

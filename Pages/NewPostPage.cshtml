@@ -1,0 +1,30 @@
+﻿@page
+@model ForumSport.Pages.NewPostPageModel
+@inject SignInManager<Models.ApplicationUser> SignInManager
+@inject UserManager<Models.ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "New Post";
+}
+
+<div class="card card-body d-flex justify-content-center align-items-center">
+    <form method="post" enctype="multipart/form-data" class="w-100" style="max-width: 500px">
+        <div class="mb-3">
+            <label asp-for="MyNewPost.Header" class="form-label">Huvudrubrik</label>
+            <input asp-for="MyNewPost.Header" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="MyNewPost.Content" class="form-label">Text för inlägg</label>
+            <textarea asp-for="MyNewPost.Content" class="form-control" cols="50" rows="10"></textarea>
+        </div>
+        <div class="mb-3">
+            <label asp-for="MyNewPost.SubCategoryId" class="form-label">Tillhör subkategori: </label>
+            <select asp-for="MyNewPost.SubCategoryId" class="form-control" asp-items="ViewBag.SubCategoryId"></select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="MyNewPost.ImgString" class="form-label">Valfri bild</label>
+            <input asp-for="PostImage" class="form-control" />
+        </div>
+        <input type="submit" value="Skapa post" class="btn btn-primary" />
+    </form>
+
+</div>
