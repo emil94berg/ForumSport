@@ -1,0 +1,33 @@
+﻿@page
+@model ForumSport.Pages.Admin.CreateCategoryModel
+@{
+}
+@if (Model.Categories != null)
+{
+    <div class="d-flex flex-wrap gap-2">
+        @foreach (var categorie in Model.Categories)
+        {
+            <p class="p-2 border rounded">@categorie.Name</p>
+        }
+    </div>
+}
+
+<div class="card card-body d-flex justify-content-center align-items-center">
+    <form method="post" class="w-100" style="max-width: 500px">
+        <div class="mb-3">
+            <label asp-for="NewCategory.Name" class="form-label">Name på kategory</label>
+            <input asp-for="NewCategory.Name" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="NewCategory.Description" class="form-label">Beskrivning</label>
+            <input asp-for="NewCategory.Description" class="form-control" />
+        </div>
+
+        <div class="text-center">
+            <input type="submit" value="Spara kategori" class="btn btn-primary" />
+        </div>
+    </form>
+
+</div>
+

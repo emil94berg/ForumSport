@@ -2,7 +2,9 @@
 @model ForumSport.Pages.CategoryPageModel
 @{
 }
+
 <div style="display: flex; gap: 20px;">
+    <a asp-page="/NewPostPage" class="btn btn-outline-primary" style="margin-bottom: 20px;"><p>Skapa ny post</p></a>
     @foreach (var subs in Model.AllSubCategories.Where(s => s.CategoryId == Model.SelectedCategoryId))
     {
         <a asp-route-thisCategoryId="@Model.SelectedCategoryId" asp-route-subId="@subs.Id"><p>@subs.Name</p></a>
@@ -24,10 +26,6 @@
             </p>
             
         </div>
-            
             <p class="card-footer">@post.PostDate.ToString("yyyy-MM-dd HH:mm")</p>
-            
-        
-        
     }
 </div>

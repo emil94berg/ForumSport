@@ -1,0 +1,12 @@
+﻿@page
+@model ForumSport.Pages.EditProfilePageModel
+@{
+}
+<img src="~/img/@Model.CurrentUser.ImgString"/>
+<br />
+<form method="post" enctype="multipart/form-data">
+    <label>Välj ny profilbild</label>
+    <input asp-for="ProfilePic" />
+    <br />
+    <input type="submit" value="Ladda upp profilbild" class="btn btn-primary" />
+</form>

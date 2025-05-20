@@ -1,5 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+    @using ForumSport.Models
+    @inject UserManager<ApplicationUser> UserManager
+    @inject SignInManager<ApplicationUser> SignInManager
+@{
+    ApplicationUser currentUser = null;
+    if (SignInManager.IsSignedIn(User))
+    {
+        currentUser = await UserManager.GetUserAsync(User);
+    }
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,8 +35,35 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/EditProfilePage">Uppdatera profil</a>
+                        </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav align-items-center">
+                        @if(currentUser != null)
+                        {
+                            <li class="nav-item d-flex align-items-center me-3">
+                                <img src="~/img/@currentUser.ImgString" alt="Profile Image"
+                                     style="width:40px; height:40px; border-radius:50%; margin-right:10px;" />
+                                <a class="nav-link p-0" asp-area="Identity" asp-page="/Account/Manage/Index" style="cursor:pointer;">
+                                    @currentUser.UserName
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <form id="logout-form" method="post" asp-area="Identity" asp-page="/Account/Logout" class="d-inline">
+                                    <button type="submit" class="nav-link btn btn-link p-0" style="cursor:pointer;">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <partial name="_LoginPartial" />
+                        }
+                    </ul>
+                    @* <partial name="_LoginPartial" /> *@
+
+                    </ul>
+                    @*<partial name="_LoginPartial" />*@
                 </div>
             </div>
         </nav>

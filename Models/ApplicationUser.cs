@@ -6,5 +6,6 @@ namespace ForumSport.Models
     {
         public bool IsAdmin { get; set; }
         public string? ImgString { get; set; }
+
     }
 }
