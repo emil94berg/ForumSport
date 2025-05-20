@@ -38,6 +38,16 @@ namespace ForumSport.Pages
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
+                if (!string.IsNullOrEmpty(user.ImgString))
+                {
+                    var oldImg = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", user.ImgString);
+                    if (System.IO.File.Exists(oldImg))
+                    {
+                        System.IO.File.Delete(oldImg);
+                    }
+                }
+
+
                 user.ImgString = fileName;
 
             }

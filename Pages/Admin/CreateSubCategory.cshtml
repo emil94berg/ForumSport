@@ -1,0 +1,41 @@
+﻿@page
+@model ForumSport.Pages.Admin.CreateSubCategoryModel
+@{
+}
+@if (Model.SubCategories != null)
+{
+    <div class="d-flex flex-wrap gap-2">
+        @foreach (var categorie in Model.SubCategories)
+        {
+            <p class="p-2 border rounded">@categorie.Name</p>
+        }
+    </div>
+}
+
+<div class="card card-body d-flex justify-content-center align-items-center">
+    <form method="post" class="w-100" style="max-width: 500px">
+        <div class="mb-3">
+            <label asp-for="NewSubCategory.Name" class="form-label">Name på Subkategori</label>
+            <input asp-for="NewSubCategory.Name" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="NewSubCategory.Description" class="form-label">Beskrivning</label>
+            <input asp-for="NewSubCategory.Description" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="NewSubCategory.CategoryId" class="form-label">Tillhör kategori: </label>
+            <select asp-for="NewSubCategory.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+        </div>
+
+        <div class="text-center">
+            <input type="submit" value="Spara Subkategori" class="btn btn-primary" />
+        </div>
+    </form>
+    <!--<div class="mb-3">
+            <label asp-for="MyNewPost.SubCategoryId" class="form-label">Tillhör subkategori: </label>
+            <select asp-for="MyNewPost.SubCategoryId" class="form-control" asp-items="ViewBag.SubCategoryId"></select>
+        </div>
+    -->
+
+</div>
