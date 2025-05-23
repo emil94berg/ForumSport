@@ -20,7 +20,7 @@ namespace ForumSport.Pages
 
 
 
-        public async Task OnGetAsync(int postId)
+        public async Task OnGetAsync(int postId, int reportId)
         {
             var post = await _context.Posts.Where(p => p.Id == postId).FirstOrDefaultAsync();
             if(post != null)
@@ -31,6 +31,18 @@ namespace ForumSport.Pages
             Comments = await _context.Comments.Where(c => c.PostId == postId)
                 .Include(c => c.User)
                 .OrderBy(c => c.Date).ToListAsync();
+
+            if(reportId != 0)
+            {
+                var report = await _context.Posts.Where(x => x.Id == reportId).FirstOrDefaultAsync();
+                if (report != null)
+                {
+                    report.Reported = true;
+                    _context.Posts.Update(report);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            
         }
         public async Task<IActionResult> OnPostAsync(int postId)
         {

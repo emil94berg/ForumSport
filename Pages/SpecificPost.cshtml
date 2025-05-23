@@ -36,10 +36,10 @@
                     <div class="card card-footer">
                         <a asp-page="/ChatPage" asp-route-chatId="@comment.UserId" class="alert-success">Skriv till användare"</a>
                         <hr />
-                        <a asp-page="/Admin/ReportedPost" asp-route-reportId="@comment.PostId" class="alert-danger">Anmäl inlägg</a>
                     </div>
                 </div>
             </div>
+
         }
     }
     else
@@ -47,6 +47,7 @@
         <p>Inga kommentarer än</p>
     }
 </div>
+
 @if (signInManager.IsSignedIn(User))
 {
     <div class="card card-body d-flex justify-content-center align-items-center">
@@ -58,6 +59,8 @@
 
     </div>
 }
+    <a asp-route-reportId="@Model.Post.Id" asp-route-postId="@Model.Post.Id" class="btn btn-danger report-button">Anmäl inlägg</a>
+
 
 
 

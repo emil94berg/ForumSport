@@ -7,7 +7,9 @@
         public string Content { get; set; }
         public string? ImgString { get; set; }
         public DateTime PostDate { get; set; } = DateTime.Now;
-        //public bool Reported { get; set; } = false;
+        public bool Reported { get; set; } = false;
+
+
 
         public virtual SubCategory? SubCategory { get; set; }
         public int SubCategoryId { get; set; }

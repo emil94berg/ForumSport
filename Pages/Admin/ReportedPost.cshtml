@@ -1,0 +1,10 @@
+﻿@page
+@model ForumSport.Pages.Admin.ReportedPostModel
+@{
+}
+@foreach(var report in Model.ReportedPosts)
+{
+    <span>@report.Header | @report.Content | <a asp-route-deleteId="@report.Id">Ta bort post</a></span>
+    <br />
+    <hr />
+}
