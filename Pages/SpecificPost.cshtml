@@ -33,13 +33,13 @@
                         <p>@comment.Content</p>
                         <small class="text-muted">Postat den: @comment.Date.ToString("dd-MM-yy")</small>
                     </div>
+                    <div class="card card-footer">
+                        <a asp-page="/ChatPage" asp-route-chatId="@comment.UserId" class="alert-success">Skriv till användare"</a>
+                        <hr />
+                        <a asp-page="/Admin/ReportedPost" asp-route-reportId="@comment.PostId" class="alert-danger">Anmäl inlägg</a>
+                    </div>
                 </div>
             </div>
-            
-            @* <div class="card card-body mb-2">
-                <p>@comment.Content</p>
-                <p>@comment.User.UserName</p>
-            </div> *@
         }
     }
     else
@@ -57,13 +57,8 @@
         </form>
 
     </div>
-
-    //<div class="card card-body d-flex justify-content-center align-items-center">
-    @* <form method="post" enctype="multipart/form-data" class="w-100" style="max-width: 500px">
-        <div class="mb-3">
-            <label asp-for="MyNewPost.Header" class="form-label">Huvudrubrik</label>
-            <input asp-for="MyNewPost.Header" class="form-control" />
-        </div> *@
 }
+
+
 
 
