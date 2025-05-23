@@ -1,5 +1,7 @@
 ﻿@page
 @model ForumSport.Pages.SpecificPostModel
+@inject SignInManager<Models.ApplicationUser> signInManager
+@inject UserManager<Models.ApplicationUser> userManager
 @{
 }
 
@@ -7,5 +9,61 @@
     <h1>@Model.Post.Header</h1>
     <p>@Model.Post.Content</p>
 </div>
-    
+<div>
+    <h2>Comments</h2>
+    @if (Model.Comments != null && Model.Comments.Count > 0)
+    {
+        foreach (var comment in Model.Comments)
+        {
+            <div class="card mb-2">
+                <div class="card-body d-flex">
+                    <div class="me-3 text-center" style="width: 80px">
+                        <img src="@(comment.User.ImgString == null ? "/img/ingenprofilbild.jpg" : $"/img/{comment.User.ImgString}")"
+                        class="img-fluid rounded"
+                        style="max-width: 50px; height: 50px;"
+                        alt="User profile photo"/>
+                        <div class="mt-1" style="font-size: 0.85em;">
+                            <strong>
+                                @(comment.User.UserName == null ? "Okänd användare" : comment.User.UserName)
+                            </strong>
+                        </div>
+                        
+                    </div>
+                    <div class="flex-grow-1">
+                        <p>@comment.Content</p>
+                        <small class="text-muted">Postat den: @comment.Date.ToString("dd-MM-yy")</small>
+                    </div>
+                </div>
+            </div>
+            
+            @* <div class="card card-body mb-2">
+                <p>@comment.Content</p>
+                <p>@comment.User.UserName</p>
+            </div> *@
+        }
+    }
+    else
+    {
+        <p>Inga kommentarer än</p>
+    }
+</div>
+@if (signInManager.IsSignedIn(User))
+{
+    <div class="card card-body d-flex justify-content-center align-items-center">
+        <form method="post" class="w-100" style="max-width: 500px">
+            <label asp-for="NewComment.Content" class="form-label">Skriv en kommentar</label>
+            <textarea asp-for="NewComment.Content" class="form-control" ></textarea>
+            <input type="submit" value="Spara kommentar" class="btn btn-primary"/>  
+        </form>
+
+    </div>
+
+    //<div class="card card-body d-flex justify-content-center align-items-center">
+    @* <form method="post" enctype="multipart/form-data" class="w-100" style="max-width: 500px">
+        <div class="mb-3">
+            <label asp-for="MyNewPost.Header" class="form-label">Huvudrubrik</label>
+            <input asp-for="MyNewPost.Header" class="form-control" />
+        </div> *@
+}
+
 

@@ -12,5 +12,6 @@ namespace ForumSport.Data
         public DbSet<ForumSport.Models.Category> Categories { get; set; }
         public DbSet<ForumSport.Models.SubCategory> SubCategories { get; set; }
         public DbSet<ForumSport.Models.Post> Posts { get; set; }
+        public DbSet<ForumSport.Models.Comment> Comments { get; set; }
     }
 }
