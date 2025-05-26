@@ -1,0 +1,9 @@
+﻿@page
+@model ForumSport.Pages.Admin.ShowPostFromAPIModel
+@{
+}
+<h1>Test för API</h1>
+@foreach(var x in Model.AllPosts)
+{
+    <p>@x.Content</p>
+}

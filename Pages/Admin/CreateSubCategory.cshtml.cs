@@ -32,7 +32,8 @@ namespace ForumSport.Pages.Admin
         }
         public async Task OnPostAsync()
         {
-
+            _context.Add(NewSubCategory);
+            await _context.SaveChangesAsync();
         }
 
     }

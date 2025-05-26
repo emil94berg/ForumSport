@@ -14,8 +14,6 @@ namespace ForumSport.Pages.Admin
         public List<Models.Post> ReportedPosts { get; set; }
         public async Task<IActionResult> OnGetAsync(int deleteId)
         {
-            
-
             if(deleteId != 0)
             {
                 var deletePost = await _context.Posts.Where(x => x.Id == deleteId).FirstOrDefaultAsync();
