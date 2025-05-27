@@ -4,7 +4,7 @@
 }
 @foreach(var report in Model.ReportedPosts)
 {
-    <span>@report.Header | @report.Content | <a asp-route-deleteId="@report.Id">Ta bort post</a></span>
+    <span>Rubrik: @report.Header | Text: @report.Content | <a asp-route-deleteId="@report.Id">Ta bort post</a> | <a asp-page="/Admin/ShowPostFromAPI" asp-route-userid="@report.UserId">Kolla upp användare</a></span>
     <br />
     <hr />
 }

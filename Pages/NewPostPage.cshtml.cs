@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -6,6 +7,7 @@ using System.Security.Claims;
 
 namespace ForumSport.Pages
 {
+    [Authorize]
     public class NewPostPageModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;

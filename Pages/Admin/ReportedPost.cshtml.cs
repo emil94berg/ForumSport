@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForumSport.Pages.Admin
 {
+    [Authorize]
     public class ReportedPostModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;

@@ -1,9 +1,15 @@
 ﻿@page
 @model ForumSport.Pages.Admin.ShowPostFromAPIModel
 @{
+    int order = 0;
 }
 <h1>Test för API</h1>
-@foreach(var x in Model.AllPosts)
+@foreach(var x in Model.UserPosts)
 {
-    <p>@x.Content</p>
+    if (order == 0)
+    {
+        <a asp-route-uId="@x.UserId" class="btn btn-danger">Ta bort allt från användare</a>
+    }
+    <p>Rubrik för inlägg: <strong>@x.Header</strong> | Text för inlägg: <strong>@x.Content</strong> | skapat: <small>@x.PostDate</small></p>
+    order++;
 }
