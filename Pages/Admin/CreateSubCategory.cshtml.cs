@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace ForumSport.Pages.Admin
 {
@@ -20,8 +21,14 @@ namespace ForumSport.Pages.Admin
         public List<Models.SubCategory> SubCategories { get; set; }
 
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user.IsAdmin == false)
+            {
+                return RedirectToPage("/Index");
+            }
             SubCategories = await _context.SubCategories.ToListAsync();
             var category = _context.Categories.Select(c => new
             {
@@ -29,7 +36,7 @@ namespace ForumSport.Pages.Admin
                 Name = c.Name
             });
             ViewData["CategoryId"] = new SelectList(category, "cId", "Name");
-
+            return Page();
             
         }
         public async Task OnPostAsync()

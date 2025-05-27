@@ -18,12 +18,17 @@ namespace ForumSport.Pages.Admin
         public Models.Category NewCategory { get; set; }
         [BindProperty]
         public List<Models.Category> Categories { get; set; }
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if(user.IsAdmin == false)
+            {
+                return RedirectToPage("/Index");
+            }
             
             Categories = await _context.Categories.ToListAsync();
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

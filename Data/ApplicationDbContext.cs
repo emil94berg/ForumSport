@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ForumSport.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ForumSport.Models.ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

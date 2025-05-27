@@ -22,10 +22,11 @@ namespace ForumSport.Pages
         public IFormFile? PostImage { get; set; }
 
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int catId)
         {
             var subCategorieList = _context.SubCategories
                 .Include(sc => sc.Category)
+                .Where(sc => sc.CategoryId == catId)
                 .Select(sc => new
                 {
                     ScId = sc.Id,

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace ForumSport.Pages.Admin
 {
@@ -21,7 +22,13 @@ namespace ForumSport.Pages.Admin
         public List<Models.Post> UserPosts { get; set; }
         public async Task<IActionResult> OnGetAsync(string userid, string uId)
         {
-            if(userid != null)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user.IsAdmin == false)
+            {
+                return RedirectToPage("/Index");
+            }
+            if (userid != null)
             {
                 UserPosts = await DAL.PostAPIManager.GetPostsForUserAsync(userid);
                 return Page();
