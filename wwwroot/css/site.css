@@ -69,3 +69,26 @@ body {
     margin-top: 20px;
 }
 
+.chatbox-Container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.chat-box {
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    max-width: 80%;
+    word-break: break-word;
+}
+.chat-box.Sender {
+    align-self: flex-end;
+    background-color: lightgreen;
+}
+.chat-box.Receiver {
+    align-self: flex-start;
+    background-color: lightblue;
+}
+

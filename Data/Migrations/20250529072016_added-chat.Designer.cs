@@ -4,6 +4,7 @@ using ForumSport.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumSport.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250529072016_added-chat")]
+    partial class addedchat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,15 +132,10 @@ namespace ForumSport.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ToUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ToUserId");
 
                     b.HasIndex("UserId");
 
@@ -388,15 +386,9 @@ namespace ForumSport.Data.Migrations
 
             modelBuilder.Entity("ForumSport.Models.Chat", b =>
                 {
-                    b.HasOne("ForumSport.Models.ApplicationUser", "ToUser")
-                        .WithMany()
-                        .HasForeignKey("ToUserId");
-
                     b.HasOne("ForumSport.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("ToUser");
 
                     b.Navigation("User");
                 });

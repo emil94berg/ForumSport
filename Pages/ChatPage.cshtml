@@ -1,0 +1,30 @@
+﻿@page
+@model ForumSport.Pages.ChatPageModel
+@{
+}
+<form method="post" class="w-100" style="max-width: 200px;">
+    <label asp-for="@Model.Chat.Content" class="form-label">Meddelande: </label>
+    <textarea asp-for="@Model.Chat.Content" class="form-control" placeholder="Skriv ditt meddelande här..." ></textarea>
+    <br />
+    <input type="submit" class="btn btn-primary" value="Skicka" />
+</form>
+<div class="chatbox-Container">
+
+
+    @foreach(var chat in Model.Chats)
+    {
+        if(chat.UserId == Model.LoggedInName)
+        {
+            <div class="chat-box Sender">
+                <p>@chat.Content</p>
+            </div>
+        }
+        else
+        {
+            <div class="chat-box Reciver">
+                <p>@chat.Content</p>
+            </div>
+        }
+    }
+</div>
+
