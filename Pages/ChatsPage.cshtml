@@ -1,0 +1,23 @@
+﻿@page
+@model ForumSport.Pages.ChatsPageModel
+@using System.Security.Claims
+@{
+}
+@foreach(var group in Model.ChatsGrouped)
+{
+    var userId = group.Key;
+    var firstChat = group.Value.FirstOrDefault();
+    var userName = firstChat?.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value
+    ? firstChat?.ToUser?.UserName : firstChat?.User?.UserName;
+
+    <div class="chat-box">
+        <a asp-page="/ChatPage" asp-route-chatId="@userId">
+        <div class="chat-header">
+            <h5>@userName</h5>
+            <p>@group.Value.Last().Content</p>
+        </div>
+        </a>
+    </div>
+
+
+}

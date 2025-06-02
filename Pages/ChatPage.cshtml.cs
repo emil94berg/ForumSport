@@ -16,7 +16,6 @@ namespace ForumSport.Pages
         {
             _context = context;
         }
-
         public string LoggedInName { get; set; }
 
 
@@ -24,12 +23,28 @@ namespace ForumSport.Pages
         public Models.Chat Chat { get; set; }
         public List<Models.Chat> Chats { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string chatId)
         {
             LoggedInName = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Chats = await _context.Chats.Where(c => c.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier) || c.ToUserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
+
+            if (string.IsNullOrEmpty(chatId))
+            {
+                return NotFound("Hittade in chatId");
+            }
+
+            Chats = await _context.Chats
+                .Where(c => (c.UserId == LoggedInName && c.ToUserId == chatId) ||
+                (c.UserId == chatId && c.ToUserId == LoggedInName))
+                .OrderBy(c => c.Date)
+                .ToListAsync();
+
             return Page();
-                
+
+
+            //LoggedInName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //Chats = await _context.Chats.Where(c => c.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier) || c.ToUserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).OrderByDescending(c => c.Date).ToListAsync();
+
+            //return Page();    
         }
         public async Task<IActionResult> OnPostAsync(string chatId)
         {
@@ -37,11 +52,7 @@ namespace ForumSport.Pages
             Chat.Date = DateTime.Now;
             Chat.ToUserId = chatId;
             await DAL.ChatManagerAPI.PostChatAsync(Chat);
-            return RedirectToPage("/ChatPage", new {chatId = LoggedInName});
-
-            //_context.Chats.Add(Chat);
-            //await _context.SaveChangesAsync();
-
+            return RedirectToPage("/ChatPage", new {chatId = chatId});
         }
     }
 }

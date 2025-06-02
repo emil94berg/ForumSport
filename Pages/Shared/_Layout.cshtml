@@ -8,6 +8,7 @@
     if (SignInManager.IsSignedIn(User))
     {
         currentUser = await UserManager.GetUserAsync(User);
+        
     }
 }
 <head>
@@ -39,7 +40,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/ChatsPage">Meddelande</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/EditProfilePage">Uppdatera profil</a>
