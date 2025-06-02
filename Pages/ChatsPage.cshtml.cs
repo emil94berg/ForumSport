@@ -13,6 +13,7 @@ namespace ForumSport.Pages
             _context = context;
         }
         public Dictionary<string, List<Models.Chat>> ChatsGrouped { get; set; }
+        public int UnreadMessages { get; set; }
         public async Task OnGetAsync()
         {
             var currentPerson = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -25,6 +26,8 @@ namespace ForumSport.Pages
 
             ChatsGrouped = allChats.GroupBy(c => c.UserId == currentPerson ? c.ToUserId : c.UserId)
                 .ToDictionary(g => g.Key, g => g.ToList());
+
+            UnreadMessages = allChats.Count(c => c.ToUserId == currentPerson && !c.Read);
         }
     }
 }

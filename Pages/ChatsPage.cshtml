@@ -3,21 +3,27 @@
 @using System.Security.Claims
 @{
 }
+<h1>Nya meddelanden: @Model.UnreadMessages st</h1>
 @foreach(var group in Model.ChatsGrouped)
 {
     var userId = group.Key;
     var firstChat = group.Value.FirstOrDefault();
+    var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     var userName = firstChat?.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value
     ? firstChat?.ToUser?.UserName : firstChat?.User?.UserName;
+
+    var unreadCount = group.Value.Count(c => c.ToUserId == loggedInId && !c.Read);
 
     <div class="chat-box">
         <a asp-page="/ChatPage" asp-route-chatId="@userId">
         <div class="chat-header">
             <h5>@userName</h5>
             <p>@group.Value.Last().Content</p>
-        </div>
+                @if(unreadCount > 0)
+                {
+                    <span class="badge bg-danger">@unreadCount</span>
+                }
+            </div>
         </a>
     </div>
-
-
 }

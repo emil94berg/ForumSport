@@ -2,16 +2,24 @@
 @model ForumSport.Pages.EditProfilePageModel
 @{
 }
-@if(Model.CurrentUser.ImgString != null)
-{
-    <img src="~/img/@Model.CurrentUser.ImgString" alt="profilbild" width="150" />
-}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4" style="max-width: 500px; width: 100%;">
+        <h3 class="text-center mb-4">Redigera profilbild</h3>
 
-<br />
-<br />
-<form method="post" enctype="multipart/form-data">
-    <label>Välj profilbild</label>
-    <input asp-for="ProfilePic" />
-    <br />
-    <input type="submit" value="Lägg till/ändra profilbild" class="btn btn-primary" />
-</form>
+        @if(Model.CurrentUser.ImgString != null)
+        {
+            <div class="text-center mb-3">
+                <img src="~/img/@Model.CurrentUser.ImgString" alt="profilbild" width="300" />
+            </div>
+        }
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label>Välj profilbild</label>
+                <input asp-for="ProfilePic" />
+            </div>
+            <div class="d-grid">
+                <input type="submit" value="Lägg till/ändra profilbild" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

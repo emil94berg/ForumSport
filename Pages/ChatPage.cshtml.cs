@@ -35,16 +35,26 @@ namespace ForumSport.Pages
             Chats = await _context.Chats
                 .Where(c => (c.UserId == LoggedInName && c.ToUserId == chatId) ||
                 (c.UserId == chatId && c.ToUserId == LoggedInName))
-                .OrderBy(c => c.Date)
+                .OrderByDescending(c => c.Date)
                 .ToListAsync();
+
+            if (Chats != null && Chats.Any(c => !c.Read))
+            {
+                foreach(var chat in Chats)
+                {
+                    if(chat.UserId != LoggedInName || chat.UserId == chat.ToUserId)
+                    {
+                        chat.Read = true;
+                    } 
+                }
+                _context.Chats.UpdateRange(Chats);
+                _context.SaveChanges();
+            }
 
             return Page();
 
 
-            //LoggedInName = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //Chats = await _context.Chats.Where(c => c.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier) || c.ToUserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).OrderByDescending(c => c.Date).ToListAsync();
-
-            //return Page();    
+              
         }
         public async Task<IActionResult> OnPostAsync(string chatId)
         {

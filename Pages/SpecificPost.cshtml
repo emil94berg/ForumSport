@@ -3,11 +3,15 @@
 @inject SignInManager<Models.ApplicationUser> signInManager
 @inject UserManager<Models.ApplicationUser> userManager
 @{
+    var postAuthor = await userManager.FindByIdAsync(Model.Post.UserId);
 }
 
 <div class="card card-body d-flex justify-content-center align-items-center">
     <h1>@Model.Post.Header</h1>
     <p>@Model.Post.Content</p>
+    <div class="card-footer">
+        <small style="color: lightsteelblue;">Skapad av: @postAuthor | @Model.Post.PostDate </small>
+    </div>
 </div>
 <div>
     <h2>Comments</h2>
@@ -15,7 +19,7 @@
     {
         foreach (var comment in Model.Comments)
         {
-            <div class="card mb-2">
+            <div class="card mb-2" style="opacity: 90%;">
                 <div class="card-body d-flex">
                     <div class="me-3 text-center" style="width: 80px">
                         <img src="@(comment.User.ImgString == null ? "/img/ingenprofilbild.jpg" : $"/img/{comment.User.ImgString}")"
