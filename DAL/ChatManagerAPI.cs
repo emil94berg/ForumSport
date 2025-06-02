@@ -4,7 +4,7 @@ namespace ForumSport.DAL
 {
     public class ChatManagerAPI
     {
-        private static Uri BaseAddress = new Uri("https://localhost:44361/");
+        private static Uri BaseAddress = new Uri("https://forumsportapi.azurewebsites.net/");
 
         public static async Task PostChatAsync(Models.Chat chat)
         {

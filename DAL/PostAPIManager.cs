@@ -5,7 +5,7 @@ namespace ForumSport.DAL
 {
     public class PostAPIManager
     {
-        private static Uri BaseAddress = new Uri("https://localhost:44361/");
+        private static Uri BaseAddress = new Uri("https://forumsportapi.azurewebsites.net/");
 
         public static async Task<List<Models.Post>> GetPostsAsync()
         {
